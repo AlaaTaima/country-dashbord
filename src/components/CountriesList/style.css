@@ -25,10 +25,12 @@
 	align-items: center;
 	justify-content: space-around;
 	margin: 25px 0px 0px 45px;
+	width: 100%;
 }
 
 .filter-btns {
 	width: 95%;
+	margin-left: 20px;
 }
 
 .main-list {
