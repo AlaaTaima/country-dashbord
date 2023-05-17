@@ -1,6 +1,6 @@
 # country-dashbord  [ Countries GraphQl API ]
 
-## Live Link : (https://iridescent-melomakarona-d161a1.netlify.app/)
+## [!Live link](https://iridescent-melomakarona-d161a1.netlify.app/)
 
 ### To Run App, follow the following : 
 
