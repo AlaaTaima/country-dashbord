@@ -5,7 +5,7 @@ import { message, Empty, Card, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { query } from '../../gql/allListQuery';
 import { Error, Loading, SearchBtn, ButtonCom } from '../commonComponents';
-import './style.css';
+import './style.scss';
 
 const HomePage = () => {
 	const [loading, setLoading] = useState(false);
@@ -65,13 +65,13 @@ const HomePage = () => {
 	}, []);
 
 	return (
-		<>
+		<div className='main-container'>
 			{error ? (
 				<Error />
 			) : loading ? (
 				<Loading />
 			) : (
-				<div className='main-container'>
+				<>
 					<h2 className='main-title'>Countries Dashboard</h2>
 
 					<SearchBtn handleSearch={onSearch} />
@@ -80,6 +80,7 @@ const HomePage = () => {
 						<div className='btn-container'>
 							<ButtonCom
 								child={<Link to='/countriesList'>Show List Of Countries</Link>}
+								handleClick={undefined}
 							/>
 						</div>
 
@@ -116,7 +117,7 @@ const HomePage = () => {
 										cover={
 											<img
 												alt='flag'
-												src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+												src={`https://flagcdn.com/48x36/${countryDetails.code.toLowerCase()}.png`}
 											/>
 										}>
 										<Meta
@@ -124,17 +125,17 @@ const HomePage = () => {
 											description={`Capital : ${countryDetails?.capital}`}
 										/>
 										<div className='country-details'>
-											<p>
+											<p className='country-details-sub-title'>
 												<span className='details-title'>Currency</span>
-												{countryDetails?.currency}
+												<p>{countryDetails?.currency}</p>
 											</p>
-											<p>
+											<p className='country-details-sub-title'>
 												<span className='details-title'>Code</span>
-												{countryDetails?.code}
+												<p>{countryDetails?.code}</p>
 											</p>
-											<p>
+											<p className='country-details-sub-title'>
 												<span className='details-title'>Language</span>
-												{countryDetails?.languages[0].name}
+												<p>{countryDetails?.languages[0].name}</p>
 											</p>
 										</div>
 										<div className='country-additional-details'>
@@ -147,9 +148,9 @@ const HomePage = () => {
 							)}
 						</div>
 					</div>
-				</div>
+				</>
 			)}
-		</>
+		</div>
 	);
 };
 

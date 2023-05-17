@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Empty, Space } from 'antd';
 import { query } from '../../gql/allListQuery';
 import { Error, Loading, SearchBtn, ButtonCom } from '../commonComponents';
-import './style.css';
+import './style.scss';
 
 function CountriesList() {
 	const [countriesList, setCountriesList] = useState([]);
