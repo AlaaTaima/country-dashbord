@@ -1,0 +1,156 @@
+/** @format */
+
+import React, { useState, useEffect } from 'react';
+import { message, Empty, Card, Modal } from 'antd';
+import { Link } from 'react-router-dom';
+import { query } from '../../gql/allListQuery';
+import { Error, Loading, SearchBtn, ButtonCom } from '../commonComponents';
+import './style.css';
+
+const HomePage = () => {
+	const [loading, setLoading] = useState(false);
+	const [countryDetails, setCountryDetails] = useState(null);
+	const [countriesList, setCountriesList] = useState([]);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [error, setError] = useState(null);
+	const { Meta } = Card;
+
+	// modal functions : open/close modal that will show additional data
+	const showModal = () => {
+		setIsModalOpen(true);
+	};
+	const handleOk = () => {
+		setIsModalOpen(false);
+	};
+	const handleCancel = () => {
+		setIsModalOpen(false);
+	};
+
+	// search function that use country name to return it's details
+	const onSearch = (value) => {
+		if (!value) {
+			return message.error('You must enter a country name');
+		}
+
+		const requiuredCountry = countriesList?.filter((country) =>
+			country.name.toLowerCase().includes(value.toLowerCase())
+		);
+
+		return setCountryDetails(requiuredCountry[0]);
+	};
+
+	// function to get list of countries
+	const fetchCountries = () => {
+		setLoading(true);
+		fetch('https://countries.trevorblades.com/graphql', {
+			method: 'post',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				query,
+			}),
+		})
+			.then((res) => {
+				setLoading(false);
+				return res.json();
+			})
+			.then(({ data }) => setCountriesList(data.countries))
+			.catch((err) => {
+				setError(err);
+				return setLoading(false);
+			});
+	};
+
+	useEffect(() => {
+		fetchCountries();
+	}, []);
+
+	return (
+		<>
+			{error ? (
+				<Error />
+			) : loading ? (
+				<Loading />
+			) : (
+				<div className='main-container'>
+					<h2 className='main-title'>Countries Dashboard</h2>
+
+					<SearchBtn handleSearch={onSearch} />
+
+					<div className='sub-container'>
+						<div className='btn-container'>
+							<ButtonCom
+								child={<Link to='/countriesList'>Show List Of Countries</Link>}
+							/>
+						</div>
+
+						<div className='country-container'>
+							{countryDetails ? (
+								<>
+									<Modal
+										title='Additional Information'
+										open={isModalOpen}
+										onOk={handleOk}
+										onCancel={handleCancel}>
+										<p>
+											<span className='details-title'>Continent : </span>
+											{countryDetails?.continent.name}
+										</p>
+										<p>
+											<span className='details-title'>Emoji : </span>
+											{countryDetails?.emoji}
+										</p>
+										<p>
+											<span className='details-title'>Phone : </span>
+											{countryDetails?.phone}
+										</p>
+										<p>
+											<span className='details-title'>Native : </span>
+											{countryDetails?.native}
+										</p>
+									</Modal>
+									<Card
+										hoverable
+										style={{
+											width: 240,
+										}}
+										cover={
+											<img
+												alt='flag'
+												src='https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png'
+											/>
+										}>
+										<Meta
+											title={`Name : ${countryDetails?.name}`}
+											description={`Capital : ${countryDetails?.capital}`}
+										/>
+										<div className='country-details'>
+											<p>
+												<span className='details-title'>Currency</span>
+												{countryDetails?.currency}
+											</p>
+											<p>
+												<span className='details-title'>Code</span>
+												{countryDetails?.code}
+											</p>
+											<p>
+												<span className='details-title'>Language</span>
+												{countryDetails?.languages[0].name}
+											</p>
+										</div>
+										<div className='country-additional-details'>
+											<ButtonCom child='Show More' handleClick={showModal} />
+										</div>
+									</Card>
+								</>
+							) : (
+								<Empty />
+							)}
+						</div>
+					</div>
+				</div>
+			)}
+		</>
+	);
+};
+
+export default HomePage;
