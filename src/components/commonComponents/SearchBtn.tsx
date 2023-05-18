@@ -3,11 +3,11 @@
 import React from 'react';
 import { Input } from 'antd';
 
-// type Props = {
-// 	handleSearch: MouseEventHandler;
-// };
+interface Props {
+	handleSearch: (value: string) => void;
+}
 
-export default function SearchBtn({ handleSearch }) {
+const SearchBtn = ({ handleSearch }: Props) => {
 	const { Search } = Input;
 
 	return (
@@ -16,7 +16,9 @@ export default function SearchBtn({ handleSearch }) {
 			allowClear
 			enterButton='filter by name'
 			size='large'
-			onSearch={handleSearch}
+			onSearch={(value: string) => handleSearch(value)}
 		/>
 	);
-}
+};
+
+export default SearchBtn;

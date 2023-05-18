@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Result } from 'antd';
-export default function Error() {
+
+const Error: React.FC = () => {
 	return (
 		<Result
 			status='500'
@@ -10,4 +11,6 @@ export default function Error() {
 			subTitle='error'
 		/>
 	);
-}
+};
+
+export default Error;

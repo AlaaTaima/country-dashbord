@@ -1,12 +1,14 @@
 /** @format */
 
-import React from 'react';
+import React, { FC } from 'react';
 import { Spin } from 'antd';
 
-export default function Loading() {
+const Loading: FC = () => {
 	return (
 		<div className='spinner-container'>
 			<Spin size='large' />
 		</div>
 	);
-}
+};
+
+export default Loading;
