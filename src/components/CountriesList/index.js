@@ -66,7 +66,7 @@ function CountriesList() {
 			setFilteredCountries(filteredList);
 		} else {
 			message.warning('No matched country, enter avalid name');
-			return setFilteredCountries([])
+			return setFilteredCountries([]);
 		}
 	};
 
@@ -105,7 +105,7 @@ function CountriesList() {
 							{showAllList ? (
 								countriesList?.length ? (
 									countriesList.map((country) => (
-										<div key={country.code}>
+										<div data-testid='country' key={country.code}>
 											<Space direction='vertical' size={16}>
 												<Card
 													title={country.name}
