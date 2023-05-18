@@ -1,13 +1,13 @@
 /** @format */
 
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { Input } from 'antd';
 
-type Props = {
-	handleSearch: MouseEventHandler;
-};
+// type Props = {
+// 	handleSearch: MouseEventHandler;
+// };
 
-export default function SearchBtn({ handleSearch }: Props) {
+export default function SearchBtn({ handleSearch }) {
 	const { Search } = Input;
 
 	return (
