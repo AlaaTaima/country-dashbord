@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Routes , Route } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import 'antd/dist/antd.min.css';
 import * as ROUTES from '../constants/router';
 import {HomePage, CountriesList} from '../components';

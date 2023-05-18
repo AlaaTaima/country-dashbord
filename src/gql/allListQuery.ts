@@ -15,10 +15,6 @@ query Countries {
       continent {
         name
       }
-      states {
-        name
-        
-      }
     }
   }
 	`;

@@ -24,7 +24,15 @@
 		align-items: center;
 		justify-content: space-around;
 		margin: 25px 0px 0px 45px;
-		width: 100%;
+		width: 80%;
+
+		.action-btns {
+			display: flex;
+		}
+		.action-btns Button {
+			margin: 0px 10px;
+			border: 1px solid white;
+		}
 
 		.filter-btns {
 			width: 95%;
@@ -59,7 +67,7 @@
 			flex-direction: column;
 		}
 
-	.list-btn-container .filter-btns {
+		.list-btn-container .filter-btns {
 			margin-top: 15px !important;
 			margin-left: 0px;
 		}

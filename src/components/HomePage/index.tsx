@@ -1,18 +1,36 @@
 /** @format */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect }  from 'react';
 import { message, Empty, Card, Modal } from 'antd';
 import { Link } from 'react-router-dom';
 import { query } from '../../gql/allListQuery';
 import { Error, Loading, SearchBtn, ButtonCom } from '../commonComponents';
 import './style.scss';
 
+type Country = {
+	name: string;
+	capital: string;
+	currency: string;
+	code: string;
+	languages: {
+	  name: string;
+	}[];
+	continent: {
+	  name: string;
+	};
+	emoji: string;
+	phone: string;
+	native: string;
+  }
+
+
 const HomePage = () => {
-	const [loading, setLoading] = useState(false);
-	const [countryDetails, setCountryDetails] = useState(null);
-	const [countriesList, setCountriesList] = useState([]);
-	const [isModalOpen, setIsModalOpen] = useState(false);
-	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [countryDetails, setCountryDetails] = useState<Country | null>(null);
+	// @ts-ignore
+	const [countriesList, setCountriesList] = useState<Country | []>([]);
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+	const [error, setError] = useState<any>(null);
 	const { Meta } = Card;
 
 	// modal functions : open/close modal that will show additional data
@@ -49,11 +67,11 @@ const HomePage = () => {
 				query,
 			}),
 		})
-			.then((res) => {
-				setLoading(false);
-				return res.json();
+			.then((res) => res.json())
+			.then(({ data }) => {
+				setCountriesList(data.countries);
+				return setLoading(false);
 			})
-			.then(({ data }) => setCountriesList(data.countries))
 			.catch((err) => {
 				setError(err);
 				return setLoading(false);
