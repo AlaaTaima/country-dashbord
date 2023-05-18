@@ -7,28 +7,28 @@ import { query } from '../../gql/allListQuery';
 import { Error, Loading, SearchBtn, ButtonCom } from '../commonComponents';
 import './style.scss';
 
-type Country = {
-	name: string;
-	capital: string;
-	currency: string;
-	code: string;
-	languages: {
-		name: string;
-	}[];
-	continent: {
-		name: string;
-	};
-	emoji: string;
-	phone: string;
-	native: string;
-};
+// type Country = {
+// 	name: string;
+// 	capital: string;
+// 	currency: string;
+// 	code: string;
+// 	languages: {
+// 		name: string;
+// 	}[];
+// 	continent: {
+// 		name: string;
+// 	};
+// 	emoji: string;
+// 	phone: string;
+// 	native: string;
+// };
 
 function CountriesList() {
-	const [countriesList, setCountriesList] = useState<Country | []>([]);
-	const [loading, setLoading] = useState<Boolean>(false);
-	const [showAllList, setShowAllList] = useState<Boolean>(true);
-	const [error, setError] = useState<any>('');
-	const [filteredCountries, setFilteredCountries] = useState<Country | []>([]);
+	const [countriesList, setCountriesList] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [showAllList, setShowAllList] = useState(true);
+	const [error, setError] = useState('');
+	const [filteredCountries, setFilteredCountries] = useState([]);
 
 	const navigate = useNavigate();
 
